@@ -1,41 +1,233 @@
-<div class="weather-card">
-    <div class="search-bar">
-        <input type="text" placeholder="Search city">
-        <div class="search-icon">🔍</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Weather Card</title>
+    <!-- Use the Inter font for a clean, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables based on the identified hex codes */
+        :root {
+            --color-background-start: #E6F0FF; /* Light Blue */
+            --color-background-end: #F0E6FF; /* Light Lavender */
+            --color-card-background: #FFFFFF;
+            --color-primary-text: #2C2C3A; /* Very dark indigo/black */
+            --color-secondary-text: #757585; /* Medium gray */
+            --color-accent-yellow: #FFC400; /* Bright saturated yellow */
+            --color-icon-gray: #A9B8C5; /* Light blue-gray for clouds/rain */
+            --color-search-bg: #F8F8FC; /* Very light gray for search bar */
+            --color-separator: #EEEEEE;
+        }
+
+        body {
+            /* Full-screen, responsive background gradient */
+            background: linear-gradient(135deg, var(--color-background-start), var(--color-background-end));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            padding: 20px; /* Padding for small mobile screens */
+            box-sizing: border-box;
+        }
+
+        .weather-card {
+            width: 100%;
+            max-width: 380px; /* Maximum width restriction */
+            padding: 30px 25px;
+            background-color: var(--color-card-background);
+            border-radius: 30px;
+            /* Subtle, clean shadow for elevation */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 10px rgba(0, 0, 0, 0.03); 
+            transition: transform 0.3s ease;
+        }
+
+        /* --- Search Bar Styling --- */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: var(--color-search-bg); 
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            color: var(--color-primary-text);
+            padding: 0;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--color-secondary-text);
+            font-weight: 600;
+        }
+
+        .search-icon {
+            color: var(--color-secondary-text);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* --- Current Weather Styling --- */
+        .current-weather {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .city {
+            font-size: 30px;
+            color: var(--color-primary-text);
+            font-weight: 700;
+            margin: 0 0 15px 0;
+        }
+
+        .icon-lg {
+            font-size: 70px;
+            line-height: 1;
+            /* Emojis can be colored using text shadow tricks, 
+               but for the best result, we use a custom inline SVG for the sun */
+            margin-bottom: 5px;
+            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* Custom SVG for the sun icon to match the specific look and color */
+        .sun-icon {
+            width: 70px;
+            height: 70px;
+            fill: var(--color-accent-yellow);
+            stroke: var(--color-accent-yellow);
+            stroke-width: 1px;
+        }
+
+        .temperature-lg {
+            font-size: 55px;
+            color: var(--color-primary-text);
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .condition-lg {
+            font-size: 18px;
+            color: var(--color-secondary-text);
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* --- Forecast Styling --- */
+        .forecast {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-separator); /* Separator line */
+            margin-top: 10px;
+        }
+
+        .day-entry {
+            text-align: center;
+            flex: 1;
+            padding: 0 5px;
+        }
+
+        .day-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-secondary-text);
+            margin-bottom: 15px;
+        }
+
+        .icon-sm {
+            font-size: 24px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        /* Custom styling for forecast icons to mimic the original image colors */
+        .icon-sm.yellow { color: var(--color-accent-yellow); }
+        .icon-sm.gray { color: var(--color-icon-gray); }
+
+        .temperature-sm {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary-text);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="weather-card">
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search city">
+            <div class="search-icon">
+                <!-- Using a more stylized search icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+        </div>
+
+        <!-- Current Weather -->
+        <div class="current-weather">
+            <h1 class="city">New York</h1>
+            <div class="icon-lg">
+                <!-- Inline SVG for the main sun icon (colored yellow) -->
+                <svg class="sun-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" stroke="none" fill="currentColor"/>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="temperature-lg">26°</div>
+            <div class="condition-lg">Sunny</div>
+        </div>
+
+        <!-- 5-Day Forecast -->
+        <div class="forecast">
+            
+            <div class="day-entry">
+                <div class="day-name">MON</div>
+                <div class="icon-sm" style="color: var(--color-accent-yellow);">☀️</div>
+                <div class="temperature-sm">26°</div>
+            </div>
+
+            <div class="day-entry">
+                <div class="day-name">TUE</div>
+                <div class="icon-sm" style="color: var(--color-icon-gray);">⛅</div>
+                <div class="temperature-sm">21°</div>
+            </div>
+
+            <div class="day-entry">
+                <div class="day-name">WED</div>
+                <div class="icon-sm" style="color: var(--color-icon-gray);">🌧️</div>
+                <div class="temperature-sm">19°</div>
+            </div>
+
+            <div class="day-entry">
+                <div class="day-name">THU</div>
+                <div class="icon-sm" style="color: var(--color-icon-gray);">🌤️</div>
+                <div class="temperature-sm">23°</div>
+            </div>
+
+            <div class="day-entry">
+                <div class="day-name">FRI</div>
+                <div class="icon-sm" style="color: var(--color-accent-yellow);">🌩️</div>
+                <div class="temperature-sm">22°</div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="current-weather">
-        <h1 class="city">New York</h1>
-        <div class="icon-lg">☀️</div>
-        <div class="temperature-lg">26°</div>
-        <div class="condition-lg">Sunny</div>
-    </div>
+</body>
+</html>
 
-    <div class="forecast">
-        <div class="day-entry">
-            <div class="day-name">MON</div>
-            <div class="icon-sm">☀️</div>
-            <div class="temperature-sm">26°</div>
-        </div>
-        <div class="day-entry">
-            <div class="day-name">TUE</div>
-            <div class="icon-sm">⛅</div>
-            <div class="temperature-sm">21°</div>
-        </div>
-        <div class="day-entry">
-            <div class="day-name">WED</div>
-            <div class="icon-sm">🌧️</div>
-            <div class="temperature-sm">19°</div>
-        </div>
-        <div class="day-entry">
-            <div class="day-name">THU</div>
-            <div class="icon-sm">🌤️</div>
-            <div class="temperature-sm">23°</div>
-        </div>
-        <div class="day-entry">
-            <div class="day-name">FRI</div>
-            <div class="icon-sm">⛈️</div>
-            <div class="temperature-sm">22°</div>
-        </div>
-    </div>
-</div>
