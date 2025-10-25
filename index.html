@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Task Manager</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter Font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7fa;
+            color: #1f2937;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #9ca3af;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4">
+
+    <!-- Main Application Container -->
+    <div id="app-container" class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-4 sm:p-6 lg:p-8">
+        
+        <!-- Header -->
+        <header class="mb-6 border-b pb-4">
+            <h1 class="text-3xl font-extrabold text-blue-600">TaskFlow</h1>
+            <p class="text-sm text-gray-500 mt-1">Manage your day, one task at a time.</p>
+            <!-- User Info display element has been removed -->
+        </header>
+
+        <!-- Task Input Form -->
+        <form id="task-form" class="mb-8 p-4 bg-gray-50 rounded-xl shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Add New Task</h2>
+            
+            <div class="mb-4">
+                <input 
+                    type="text" 
+                    id="task-title" 
+                    placeholder="E.g., Finish project report" 
+                    required 
+                    class="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 text-base shadow-sm"
+                >
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                <!-- Priority Selector -->
+                <div class="flex-1">
+                    <label for="task-priority" class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                    <select id="task-priority" class="w-full p-3 border-2 border-gray-300 rounded-lg text-base shadow-sm">
+                        <option value="medium">Medium</option>
+                        <option value="high" class="text-red-600 font-semibold">High</option>
+                        <option value="low" class="text-green-600">Low</option>
+                    </select>
+                </div>
+                
+                <!-- Due Date Selector -->
+                <div class="flex-1">
+                    <label for="task-due-date" class="block text-sm font-medium text-gray-700 mb-1">Due Date (Optional)</label>
+                    <input 
+                        type="date" 
+                        id="task-due-date" 
+                        class="w-full p-3 border-2 border-gray-300 rounded-lg text-base shadow-sm"
+                    >
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                id="add-task-btn"
+                class="w-full p-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-[1.01] shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+                Add Task
+            </button>
+        </form>
+
+        <!-- Filter and Sort Controls -->
+        <div class="mb-6 flex flex-wrap gap-2 justify-center">
+            <button data-filter="all" class="filter-btn active-filter bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-full transition duration-200 hover:bg-blue-200 text-sm shadow-md">All Tasks</button>
+            <button data-filter="active" class="filter-btn bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-full transition duration-200 hover:bg-gray-200 text-sm shadow-md">Active</button>
+            <button data-filter="completed" class="filter-btn bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-full transition duration-200 hover:bg-gray-200 text-sm shadow-md">Completed</button>
+        </div>
+
+        <!-- Task List Container -->
+        <div id="task-list" class="space-y-3">
+            <!-- Tasks will be rendered here -->
+            <p id="loading-message" class="text-center text-gray-500 p-4">Loading tasks...</p>
+        </div>
+
+        <!-- Toast Notification Area -->
+        <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2">
+            <!-- Toasts appear here -->
+        </div>
+
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            collection, 
+            query, 
+            orderBy, 
+            onSnapshot, 
+            addDoc, 
+            updateDoc, 
+            deleteDoc, 
+            doc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+        // --- GLOBAL CONFIG & INITIALIZATION ---
+
+        // Firebase configuration and App ID are provided by the canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app;
+        let db;
+        let auth;
+        let userId = null;
+        let tasks = [];
+        let currentFilter = 'all';
+
+        const taskListEl = document.getElementById('task-list');
+        const formEl = document.getElementById('task-form');
+        const loadingMessageEl = document.getElementById('loading-message');
+        // const userInfoEl = document.getElementById('user-info'); // Removed
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Firestore private data path structure
+        const getCollectionPath = (uid) => `/artifacts/${appId}/users/${uid}/tasks`;
+        
+        // Helper function for UI elements
+        const getPriorityClass = (priority) => {
+            switch (priority) {
+                case 'high':
+                    return 'bg-red-500 text-white';
+                case 'medium':
+                    return 'bg-yellow-400 text-gray-800';
+                case 'low':
+                default:
+                    return 'bg-green-500 text-white';
+            }
+        };
+
+        // --- TOAST NOTIFICATIONS ---
+
+        /**
+         * Shows a transient notification (toast) on the screen.
+         * @param {string} message The message to display.
+         * @param {string} type 'success', 'error', or 'info'.
+         */
+        const showToast = (message, type = 'info') => {
+            const container = document.getElementById('toast-container');
+            const colorClass = 
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 
+                'bg-blue-500';
+
+            const toast = document.createElement('div');
+            toast.className = `p-3 rounded-lg text-white shadow-xl max-w-xs transition-opacity duration-300 opacity-0 transform translate-y-2 ${colorClass}`;
+            toast.textContent = message;
+
+            container.appendChild(toast);
+            
+            // Fade in
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-2');
+                toast.classList.add('opacity-100', 'translate-y-0');
+            }, 10);
+
+            // Fade out and remove
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-2');
+                toast.addEventListener('transitionend', () => toast.remove());
+            }, 3000);
+        };
+
+        // --- FIREBASE AND AUTHENTICATION ---
+
+        const initializeFirebase = () => {
+            try {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('debug'); // Enable debug logging for Firestore
+            } catch (error) {
+                console.error("Firebase Initialization Error:", error);
+                showToast("Failed to initialize Firebase.", 'error');
+            }
+        };
+
+        const authenticateUser = async () => {
+            if (!auth) return;
+
+            try {
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    showToast("User authenticated successfully.", 'success');
+                } else {
+                    await signInAnonymously(auth);
+                    showToast("Signed in anonymously. Tasks will be saved locally.", 'info');
+                }
+            } catch (error) {
+                console.error("Authentication Error:", error);
+                showToast("Authentication failed.", 'error');
+            }
+
+            // Set up listener for auth state change
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    userId = user.uid;
+                    // Removed: userInfoEl.innerHTML update logic
+                    setupRealtimeListener(userId);
+                } else {
+                    userId = null;
+                    // Removed: userInfoEl text content update logic
+                }
+            });
+        };
+
+        // --- FIRESTORE OPERATIONS ---
+
+        /**
+         * Adds a new task to Firestore.
+         * @param {string} title - Task title.
+         * @param {string} priority - 'low', 'medium', or 'high'.
+         * @param {string} dueDate - Optional date string ('YYYY-MM-DD').
+         */
+        const addTask = async (title, priority, dueDate) => {
+            if (!userId) {
+                showToast("User not authenticated. Cannot add task.", 'error');
+                return;
+            }
+
+            const taskData = {
+                title: title.trim(),
+                completed: false,
+                priority: priority,
+                dueDate: dueDate || null,
+                createdAt: serverTimestamp() // Use server timestamp for ordering
+            };
+
+            try {
+                await addDoc(collection(db, getCollectionPath(userId)), taskData);
+                showToast("Task added successfully!", 'success');
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                showToast("Failed to add task.", 'error');
+            }
+        };
+
+        /**
+         * Toggles the completion status of a task.
+         * @param {string} taskId - The ID of the task document.
+         * @param {boolean} currentStatus - The current completion status.
+         */
+        const toggleTaskCompletion = async (taskId, currentStatus) => {
+            if (!userId) {
+                showToast("User not authenticated. Cannot update task.", 'error');
+                return;
+            }
+            try {
+                const taskRef = doc(db, getCollectionPath(userId), taskId);
+                await updateDoc(taskRef, {
+                    completed: !currentStatus,
+                    completedAt: !currentStatus ? serverTimestamp() : null
+                });
+                showToast(`Task marked as ${!currentStatus ? 'Completed' : 'Active'}!`, 'info');
+            } catch (error) {
+                console.error("Error updating document: ", error);
+                showToast("Failed to update task.", 'error');
+            }
+        };
+
+        /**
+         * Deletes a task from Firestore.
+         * @param {string} taskId - The ID of the task document.
+         */
+        const deleteTask = async (taskId) => {
+            if (!userId) {
+                showToast("User not authenticated. Cannot delete task.", 'error');
+                return;
+            }
+            try {
+                await deleteDoc(doc(db, getCollectionPath(userId), taskId));
+                showToast("Task deleted!", 'info');
+            } catch (error) {
+                console.error("Error deleting document: ", error);
+                showToast("Failed to delete task.", 'error');
+            }
+        };
+
+
+        // --- REAL-TIME DATA LISTENER ---
+
+        /**
+         * Sets up the real-time listener for tasks collection.
+         * @param {string} uid - The authenticated user ID.
+         */
+        const setupRealtimeListener = (uid) => {
+            if (!db) return;
+
+            const tasksCollectionRef = collection(db, getCollectionPath(uid));
+            
+            // Query: Order by creation date descending
+            // Note: Using client-side sorting/filtering to avoid complex indexing issues
+            const q = query(tasksCollectionRef, orderBy("createdAt", "desc"));
+
+            // Subscribe to the query snapshot
+            onSnapshot(q, (snapshot) => {
+                loadingMessageEl.style.display = 'none'; // Hide loading message once data arrives
+
+                tasks = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                
+                // Ensure data is sorted based on status (incomplete first) and priority (high first) before rendering
+                // Sorting client-side after initial Firestore order (by createdAt)
+                tasks.sort((a, b) => {
+                    // Primary sort: Completed tasks go to the bottom
+                    if (a.completed !== b.completed) {
+                        return a.completed ? 1 : -1;
+                    }
+                    
+                    // Secondary sort: High priority first for active tasks
+                    const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
+                    return priorityOrder[b.priority] - priorityOrder[a.priority];
+                });
+
+
+                renderTasks();
+
+            }, (error) => {
+                console.error("Error fetching tasks: ", error);
+                showToast("Error fetching tasks in real-time.", 'error');
+                loadingMessageEl.textContent = 'Failed to load tasks.';
+            });
+        };
+
+        // --- UI RENDERING ---
+
+        const renderTasks = () => {
+            // Filter tasks based on current filter state
+            const filteredTasks = tasks.filter(task => {
+                if (currentFilter === 'active') {
+                    return !task.completed;
+                }
+                if (currentFilter === 'completed') {
+                    return task.completed;
+                }
+                return true; // 'all' filter
+            });
+
+            taskListEl.innerHTML = '';
+
+            if (filteredTasks.length === 0) {
+                taskListEl.innerHTML = `
+                    <p class="text-center text-gray-500 p-8 border-2 border-dashed border-gray-200 rounded-xl">
+                        ${currentFilter === 'all' ? 'No tasks yet! Add one above.' : 
+                          currentFilter === 'active' ? 'All tasks are completed. Great job!' : 
+                          'No completed tasks.'}
+                    </p>
+                `;
+                return;
+            }
+
+            filteredTasks.forEach(task => {
+                const taskItem = document.createElement('div');
+                taskItem.className = `
+                    flex items-center p-4 rounded-xl shadow-md transition duration-300 ease-in-out
+                    ${task.completed ? 'bg-green-50 border-l-4 border-green-500 opacity-70' : 'bg-white border-l-4 border-blue-500 hover:shadow-lg'}
+                `;
+                
+                const titleClass = task.completed ? 'line-through text-gray-500' : 'text-gray-900';
+                const priorityClass = getPriorityClass(task.priority);
+                const dueDateText = task.dueDate ? `Due: ${task.dueDate}` : 'No due date';
+
+                taskItem.innerHTML = `
+                    <!-- Checkbox -->
+                    <input 
+                        type="checkbox" 
+                        id="task-${task.id}"
+                        ${task.completed ? 'checked' : ''} 
+                        class="h-6 w-6 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer flex-shrink-0"
+                    >
+
+                    <!-- Task Content -->
+                    <div class="flex-1 min-w-0 ml-4">
+                        <label for="task-${task.id}" class="block text-lg font-medium ${titleClass} break-words cursor-pointer">
+                            ${task.title}
+                        </label>
+                        <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
+                            <span class="px-2 py-0.5 rounded-full ${priorityClass} font-semibold shadow-sm">${task.priority.toUpperCase()}</span>
+                            <span class="text-gray-500">${dueDateText}</span>
+                            <span class="text-gray-400">Created: ${new Date(task.createdAt?.toDate ? task.createdAt.toDate() : task.createdAt).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+
+                    <!-- Delete Button -->
+                    <button data-id="${task.id}" data-action="delete"
+                        class="ml-3 p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition duration-150 flex-shrink-0"
+                        title="Delete Task"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                `;
+
+                // Add event listeners dynamically
+                const checkbox = taskItem.querySelector(`input[type="checkbox"]`);
+                checkbox.addEventListener('change', () => toggleTaskCompletion(task.id, task.completed));
+                
+                const deleteBtn = taskItem.querySelector(`button[data-action="delete"]`);
+                deleteBtn.addEventListener('click', () => deleteTask(task.id));
+
+                taskListEl.appendChild(taskItem);
+            });
+        };
+
+        // --- EVENT HANDLERS ---
+
+        // Handle Add Task Form Submission
+        formEl.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const titleInput = document.getElementById('task-title');
+            const priorityInput = document.getElementById('task-priority');
+            const dueDateInput = document.getElementById('task-due-date');
+
+            const title = titleInput.value;
+            const priority = priorityInput.value;
+            const dueDate = dueDateInput.value;
+
+            if (title.trim() === "") {
+                showToast("Task title cannot be empty.", 'error');
+                return;
+            }
+
+            // Simple validation for due date: must be in the future or today
+            if (dueDate && new Date(dueDate) < new Date(new Date().toDateString())) {
+                showToast("Due date cannot be in the past.", 'error');
+                return;
+            }
+
+            document.getElementById('add-task-btn').disabled = true;
+
+            addTask(title, priority, dueDate).finally(() => {
+                document.getElementById('add-task-btn').disabled = false;
+                titleInput.value = ''; // Clear title input
+                dueDateInput.value = ''; // Clear date input
+                priorityInput.value = 'medium'; // Reset priority
+            });
+        });
+
+        // Handle Filter Button Clicks
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentFilter = btn.dataset.filter;
+
+                // Update active button styling
+                filterBtns.forEach(b => {
+                    b.classList.remove('active-filter', 'bg-blue-100', 'text-blue-700');
+                    b.classList.add('bg-gray-100', 'text-gray-700');
+                });
+
+                btn.classList.add('active-filter', 'bg-blue-100', 'text-blue-700');
+                btn.classList.remove('bg-gray-100', 'text-gray-700');
+
+                renderTasks(); // Re-render the list with the new filter
+            });
+        });
+
+
+        // --- APPLICATION STARTUP ---
+        window.onload = () => {
+            initializeFirebase();
+            authenticateUser();
+        };
+
+    </script>
+</body>
+</html>
+
