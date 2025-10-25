@@ -1,779 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super House Cleaning - Premium Home Cleaning Services</title>
-    <!-- Load Tailwind CSS CDN with custom color configuration --><script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Correct way to define custom colors with Tailwind CDN
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#1e40af', /* Dark Blue - Trust */
-                        'secondary': '#38bdf8', /* Light Blue/Cyan - Cleanliness */
-                        'accent': '#fbbf24', /* Yellow - Highlight */
-                        'bg-light': '#f1f5f9', /* Light Gray/Blue */
-                    },
-                    boxShadow: {
-                        'custom': '0 10px 30px -15px rgba(30, 64, 175, 0.3)',
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Load Lucide Icons for aesthetic vectors --><script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        /* Custom styles for the Inter font and smooth scrolling */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        :root {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* light blue-gray background */
-        }
-       
-        /* Custom scrollbar for aesthetics (optional but adds polish) */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1e40af;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #38bdf8;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmetic Surgery Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
+<body class="bg-gray-50 text-gray-800">
 
-<body class="text-gray-800">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-2xl font-bold text-pink-600">CosmeticCare</h1>
+      <nav class="space-x-6 hidden md:block">
+        <a href="#services" class="hover:text-pink-600">Services</a>
+        <a href="#about" class="hover:text-pink-600">About</a>
+        <a href="#faq" class="hover:text-pink-600">FAQ</a>
+        <a href="#contact" class="hover:text-pink-600">Contact</a>
+      </nav>
+      <a href="#contact" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition">Book Now</a>
+    </div>
+  </header>
 
-    <!-- 1. Header and Responsive Navigation --><header class="sticky top-0 z-50 bg-white shadow-lg transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo --><a href="#" class="flex items-center space-x-2 text-primary text-2xl font-extrabold tracking-tight">
-                    <span class="text-secondary" data-lucide="sparkles"></span>
-                    <span>Super House Cleaning</span>
-                </a>
-
-                <!-- Desktop Navigation Links --><nav class="hidden md:flex space-x-8 font-medium">
-                    <a href="#services" class="hover:text-secondary transition duration-150">Services</a>
-                    <a href="#about" class="hover:text-secondary transition duration-150">Why Us</a>
-                    <a href="#pricing" class="hover:text-secondary transition duration-150">Pricing</a>
-                    <a href="#testimonials" class="hover:text-secondary transition duration-150">Reviews</a>
-                    <a href="#faq" class="hover:text-secondary transition duration-150">FAQ</a>
-                </nav>
-
-                <!-- Call to Action Button (Desktop) --><a href="#pricing" class="hidden md:block bg-accent hover:bg-yellow-500 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300 transform hover:scale-105">
-                    Book Now
-                </a>
-
-                <!-- Mobile Menu Button (Hamburger) --><button id="mobile-menu-button" class="md:hidden p-2 text-primary focus:outline-none">
-                    <span data-lucide="menu" id="menu-icon" class="w-6 h-6"></span>
-                    <span data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></span>
-                </button>
-            </div>
+  <!-- Hero Section -->
+  <section class="text-center py-20 bg-gradient-to-r from-pink-100 to-pink-200 fade-in">
+    <h2 class="text-4xl font-bold mb-4 text-gray-800">Enhance Your Natural Beauty</h2>
+    <p class="text-lg mb-6 text-gray-700">Professional cosmetic surgery and aesthetic treatments tailored for you.</p>
+    <a href="#services" class="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700 transition">Explore Services</a>
+  </section>
+<!-- Services Section -->
+  <section id="services" class="py-20 fade-in">
+    <div class="container mx-auto px-6">
+      <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Our Services</h3>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i data-lucide="smile" class="w-10 h-10 text-pink-600 mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Facial Surgery</h4>
+          <p class="text-gray-600">Rejuvenate and redefine your facial features with precision treatments.</p>
         </div>
-
-        <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 py-4 shadow-xl">
-            <div class="px-2 pt-2 pb-3 space-y-2 font-medium">
-                <a href="#services" class="block py-2 px-3 rounded-md text-primary bg-bg-light hover:bg-gray-100 transition duration-150" onclick="closeMobileMenu()">Services</a>
-                <a href="#about" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">Why Us</a>
-                <a href="#pricing" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">Pricing</a>
-                <a href="#testimonials" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">Reviews</a>
-                <a href="#faq" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">FAQ</a>
-                <a href="#pricing" class="block text-center mt-4 bg-primary text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-800 transition duration-300">
-                    Get an Instant Quote
-                </a>
-            </div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i data-lucide="heart" class="w-10 h-10 text-pink-600 mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Body Contouring</h4>
+          <p class="text-gray-600">Achieve your dream shape through modern and safe body procedures.</p>
         </div>
-    </header>
-
-    <main>
-        <!-- 2. Hero Section --><section class="bg-primary text-white pt-20 pb-24 md:pt-32 md:pb-40 relative overflow-hidden">
-            <!-- Background Decoration (Subtle waves/gradients) --><div class="absolute inset-0 opacity-10">
-                <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#38bdf8" fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,80C384,75,480,117,576,149.3C672,181,768,203,864,186.7C960,171,1056,117,1152,106.7C1248,96,1344,128,1392,144L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
-                </svg>
-            </div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center">
-                    <p class="text-secondary text-lg font-semibold mb-3 tracking-wider uppercase">
-                        The Future of Clean is Here
-                    </p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                        Experience the Super House Cleaning Difference
-                    </h1>
-                    <p class="text-xl sm:text-2xl text-blue-200 mb-10 max-w-3xl mx-auto">
-                        Trusted, Vetted, and Guaranteed. We bring sparkle back to your home so you can reclaim your time.
-                    </p>
-                    <a href="#pricing" class="inline-flex items-center bg-accent hover:bg-yellow-500 text-primary font-extrabold py-4 px-10 rounded-full shadow-xl transition duration-300 transform hover:scale-105 ring-4 ring-white ring-opacity-50">
-                        <span data-lucide="calendar-check" class="w-6 h-6 mr-3"></span>
-                        Book Your First Clean Now!
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Why Choose Us (Features) Section --><section id="about" class="py-16 md:py-24 bg-bg-light -mt-16 rounded-t-3xl relative z-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-                        Why Super House Cleaning?
-                    </h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                        We are committed to reliability, professionalism, and delivering an unmatched clean every time.
-                    </p>
-                </div>
-
-                <!-- Feature Grid (Responsive) --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-                    <!-- Feature 1 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
-                        <div class="text-secondary mb-4 flex justify-center">
-                            <span data-lucide="shield-check" class="w-10 h-10 stroke-1.5"></span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 text-primary">Fully Insured & Licensed</h3>
-                        <p class="text-gray-500 text-sm">
-                            Peace of mind comes standard. We are fully covered for all services provided in your home.
-                        </p>
-                    </div>
-
-                    <!-- Feature 2 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
-                        <div class="text-secondary mb-4 flex justify-center">
-                            <span data-lucide="refresh-cw" class="w-10 h-10 stroke-1.5"></span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 text-primary">24-Hour Guarantee</h3>
-                        <p class="text-gray-500 text-sm">
-                            If you're not happy, we'll return and fix it for free within 24 hours. No questions asked.
-                        </p>
-                    </div>
-
-                    <!-- Feature 3 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
-                        <div class="text-secondary mb-4 flex justify-center">
-                            <span data-lucide="leaf" class="w-10 h-10 stroke-1.5"></span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 text-primary">Eco-Friendly Products</h3>
-                        <p class="text-gray-500 text-sm">
-                            We prioritize the health of your family and pets with safe, non-toxic, green cleaning supplies.
-                        </p>
-                    </div>
-
-                    <!-- Feature 4 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
-                        <div class="text-secondary mb-4 flex justify-center">
-                            <span data-lucide="clock" class="w-10 h-10 stroke-1.5"></span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 text-primary">Easy Online Booking</h3>
-                        <p class="text-gray-500 text-sm">
-                            Get a quote and schedule your clean in less than 60 seconds, anytime, anywhere.
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Services Overview Section --><section id="services" class="py-16 md:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-                        Our Super Cleaning Packages
-                    </h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                        Choose the service that best fits your needs, from a quick refresh to a complete overhaul.
-                    </p>
-                </div>
-
-                <!-- Service Cards Grid (Responsive) --><div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                    <!-- Service Card 1: Standard Clean --><div class="bg-white border-4 border-primary/10 rounded-xl shadow-2xl p-6 flex flex-col transition duration-500 hover:shadow-custom hover:scale-[1.02]">
-                        <div class="text-center">
-                            <span data-lucide="sparkle" class="w-12 h-12 text-secondary mx-auto mb-4 fill-secondary/20"></span>
-                            <h3 class="text-2xl font-extrabold text-primary mb-2">Standard Clean</h3>
-                            <p class="text-gray-500 mb-6">Perfect for regular maintenance and scheduled cleanings.</p>
-                        </div>
-                        <ul class="space-y-3 flex-grow mb-6 text-gray-700">
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                               <span>Dusting of all accessible surfaces</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Floor cleaning (vacuum/mop)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Wipe down kitchen counters and stovetop</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Bathroom cleaning (toilets, mirrors, basic wipe down)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Trash removal</span>
-                            </li>
-                        </ul>
-                        <a href="#pricing" class="mt-auto block text-center bg-primary text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-800 transition duration-300">
-                            Select Standard
-                        </a>
-                    </div>
-
-                    <!-- Service Card 2: Deep Clean (Highlighted) --><div class="bg-primary text-white border-4 border-accent rounded-xl shadow-2xl p-8 flex flex-col relative transform scale-100 lg:scale-[1.05] z-10 transition duration-500 hover:shadow-custom hover:scale-[1.07]">
-                        <div class="absolute top-0 right-0 bg-accent text-primary font-bold text-xs px-4 py-1 rounded-bl-xl rounded-tr-xl">
-                            BEST VALUE
-                        </div>
-                        <div class="text-center">
-                            <span data-lucide="clean-hands" class="w-12 h-12 text-accent mx-auto mb-4 fill-accent/30"></span>
-                            <h3 class="text-3xl font-extrabold mb-2">Deep Clean</h3>
-                            <p class="text-blue-200 mb-6">Our most popular choice for first-time or seasonal cleaning.</p>
-                        </div>
-                        <ul class="space-y-3 flex-grow mb-6 text-blue-100">
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
-                                <span>**Everything in Standard Clean**</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Detailed scrubbing of kitchen/bathroom tile grout</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Inside windows and window tracks (easily accessible)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Wipe down baseboards, door frames, and light fixtures</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Extra attention to tough-to-reach dust areas</span>
-                            </li>
-                        </ul>
-                        <a href="#pricing" class="mt-auto block text-center bg-accent text-primary font-extrabold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition duration-300 transform hover:scale-[1.02]">
-                            Get Deep Clean Quote
-                        </a>
-                    </div>
-
-                    <!-- Service Card 3: Move In/Out Clean --><div class="bg-white border-4 border-primary/10 rounded-xl shadow-2xl p-6 flex flex-col transition duration-500 hover:shadow-custom hover:scale-[1.02]">
-                        <div class="text-center">
-                            <span data-lucide="box" class="w-12 h-12 text-secondary mx-auto mb-4 fill-secondary/20"></span>
-                            <h3 class="text-2xl font-extrabold text-primary mb-2">Move In/Out Clean</h3>
-                            <p class="text-gray-500 mb-6">Essential for deposit refunds or welcoming new homeowners.</p>
-                        </div>
-                        <ul class="space-y-3 flex-grow mb-6 text-gray-700">
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>**Everything in Deep Clean**</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Inside cabinets and drawers (empty)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Inside of refrigerator and freezer (empty)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Inside of the oven and microwave</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
-                                <span>Sanitization of all surfaces</span>
-                            </li>
-                        </ul>
-                        <a href="#pricing" class="mt-auto block text-center bg-primary text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-800 transition duration-300">
-                            Request Move Clean
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Instant Quote/Pricing Simulator Section --><section id="pricing" class="py-16 md:py-24 bg-bg-light">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-                        Get Your Instant Super Quote
-                    </h2>
-                    <p class="text-lg text-gray-600">
-                        Select your home size and cleaning type for a transparent estimate in seconds.
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-t-4 border-secondary">
-                    <form id="quote-form" class="space-y-6">
-                        <!-- Step 1: Cleaning Type --><div>
-                            <label for="cleaning-type" class="block text-lg font-medium text-gray-700 mb-2">
-                                1. Select Cleaning Service Type
-                            </label>
-                            <select id="cleaning-type" name="cleaning-type" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150 text-base">
-                                <option value="" disabled selected>Choose a package...</option>
-                                <option value="standard">Standard Clean</option>
-                                <option value="deep">Deep Clean (Recommended)</option>
-                                <option value="move">Move In/Out Clean</option>
-                            </select>
-                        </div>
-
-                        <!-- Step 2: Home Size --><div>
-                            <label for="bedrooms" class="block text-lg font-medium text-gray-700 mb-2">
-                                2. Number of Bedrooms
-                            </label>
-                            <div class="flex flex-wrap gap-4">
-                                <button type="button" data-value="1" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">1 Bedroom</button>
-                                <button type="button" data-value="2" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">2 Bedrooms</button>
-                                <button type="button" data-value="3" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">3 Bedrooms</button>
-                                <button type="button" data-value="4+" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">4+ Bedrooms</button>
-                            </div>
-                            <input type="hidden" id="bedrooms" name="bedrooms" required>
-                            <p id="room-error" class="text-red-500 text-sm mt-2 hidden">Please select a bedroom count.</p>
-                        </div>
-
-                        <!-- Step 3: Frequency --><div>
-                            <label for="frequency" class="block text-lg font-medium text-gray-700 mb-2">
-                                3. Choose Frequency
-                            </label>
-                            <div class="flex flex-wrap gap-4">
-                                <label class="frequency-option border border-gray-300 p-4 rounded-lg flex items-center cursor-pointer transition duration-150 hover:shadow-md">
-                                    <input type="radio" name="frequency" value="one-time" class="h-4 w-4 text-primary focus:ring-primary mr-2" required>
-                                    One-Time
-                                </label>
-                                <label class="frequency-option border border-gray-300 p-4 rounded-lg flex items-center cursor-pointer transition duration-150 hover:shadow-md">
-                                    <input type="radio" name="frequency" value="weekly" class="h-4 w-4 text-primary focus:ring-primary mr-2">
-                                    Weekly (Save 20%)
-                                </label>
-                                <label class="frequency-option border border-gray-300 p-4 rounded-lg flex items-center cursor-pointer transition duration-150 hover:shadow-md">
-                                    <input type="radio" name="frequency" value="bi-weekly" class="h-4 w-4 text-primary focus:ring-primary mr-2">
-                                    Bi-Weekly (Save 15%)
-                                </label>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="w-full bg-accent hover:bg-yellow-500 text-primary font-extrabold py-4 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-[1.01]">
-                            Calculate Super Quote
-                        </button>
-                    </form>
-
-                    <!-- Quote Result Display --><div id="quote-result" class="mt-8 p-6 bg-secondary text-white rounded-xl shadow-xl hidden">
-                        <h3 class="text-2xl font-bold mb-3 flex items-center">
-                            <span data-lucide="dollar-sign" class="w-6 h-6 mr-2"></span>
-                            Your Estimated Super Quote:
-                        </h3>
-                        <p class="text-4xl font-extrabold mb-4" id="final-price">$0.00</p>
-                        <p id="quote-details" class="text-blue-100"></p>
-                        <button onclick="document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });" class="mt-4 bg-white text-primary font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300">
-                            Book Your Service
-                        </button>
-                    </div>
-
-                    <!-- Error Message Display --><div id="quote-error" class="mt-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg hidden">
-                        <p class="font-medium">
-                            Please ensure you select a Cleaning Type, Number of Bedrooms, and Frequency before calculating your quote.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. Testimonials Section --><section id="testimonials" class="py-16 md:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-                        What Our Customers Say
-                    </h2>
-                    <p class="text-lg text-gray-600">
-                        Real feedback from real people who trust us with their homes.
-                    </p>
-                </div>
-
-                <!-- Testimonial Grid (Simulated Carousel - just show two cards for simplicity) --><div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                    <!-- Testimonial 1 --><div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-accent transition duration-300 hover:shadow-2xl">
-                        <div class="flex items-center mb-4">
-                            <!-- Star Rating (using Lucide icons) --><div class="flex text-accent mr-3">
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                            </div>
-                            <span class="text-gray-500 text-sm">5 days ago</span>
-                        </div>
-                        <p class="text-xl font-medium italic text-gray-700 mb-6">
-                            "The Deep Clean service was truly exceptional. They found dust I didn't even know existed! My house feels brand new. I signed up for bi-weekly service immediately."
-                        </p>
-                        <div class="flex items-center">
-                            <!-- Placeholder Image (using placehold.co) --><img src="https://placehold.co/40x40/1e40af/ffffff?text=JK" alt="Customer Avatar" class="w-10 h-10 rounded-full mr-3 border-2 border-primary">
-                            <div>
-                                <p class="font-semibold text-primary">Jessica K.</p>
-                                <p class="text-sm text-gray-500">Local Resident, 3-Bedroom Home</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 2 --><div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-accent transition duration-300 hover:shadow-2xl">
-                        <div class="flex items-center mb-4">
-                            <!-- Star Rating (using Lucide icons) --><div class="flex text-accent mr-3">
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
-                            </div>
-                            <span class="text-gray-500 text-sm">2 weeks ago</span>
-                        </div>
-                        <p class="text-xl font-medium italic text-gray-700 mb-6">
-                            "Super House Cleaning made our move-out process stress-free. The house passed the landlord inspection with flying colors. Worth every penny. Highly professional team."
-                        </p>
-                        <div class="flex items-center">
-                            <!-- Placeholder Image (using placehold.co) --><img src="https://placehold.co/40x40/1e40af/ffffff?text=MB" alt="Customer Avatar" class="w-10 h-10 rounded-full mr-3 border-2 border-primary">
-                            <div>
-                                <p class="font-semibold text-primary">Mark B.</p>
-                                <p class="text-sm text-gray-500">Real Estate Investor</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. FAQ Section (Accordion) --><section id="faq" class="py-16 md:py-24 bg-bg-light">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-                        Frequently Asked Questions
-                    </h2>
-                    <p class="text-lg text-gray-600">
-                        Get quick answers to the most common inquiries about our service.
-                    </p>
-                </div>
-
-                <!-- FAQ Accordion Container --><div class="space-y-4">
-
-                    <!-- FAQ Item 1 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
-                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
-                            <span class="text-lg font-semibold text-primary">Are your cleaners insured and background-checked?</span>
-                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
-                        </button>
-                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
-                            <p>Absolutely. For your safety and peace of mind, every member of the Super House Cleaning team is fully insured, bonded, and undergoes a rigorous national background check before being hired.</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 2 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
-                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
-                            <span class="text-lg font-semibold text-primary">Do I need to provide cleaning supplies?</span>
-                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
-                        </button>
-                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
-                            <p>No, we bring all the necessary professional-grade equipment and eco-friendly cleaning solutions. If you have specific, specialty products you would like us to use, please leave them out and let us know in your booking notes!</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 3 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
-                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
-                            <span class="text-lg font-semibold text-primary">What if I need to reschedule or cancel?</span>
-                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
-                        </button>
-                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
-                            <p>We require a minimum of 24 hours notice for any cancellation or rescheduling to avoid a cancellation fee. You can easily manage your bookings through our online portal.</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 4 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
-                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
-                            <span class="text-lg font-semibold text-primary">Is there a discount for recurring services?</span>
-                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
-                        </button>
-                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
-                            <p>Yes! We offer substantial savings for recurring cleans: 20% off for weekly services and 15% off for bi-weekly services. These discounts are automatically applied when you select the frequency in the quote calculator.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- 8. Footer Section --><footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-8 mb-8">
-
-                <!-- Column 1: Logo and Mission --><div>
-                    <a href="#" class="flex items-center space-x-2 text-secondary text-xl font-extrabold tracking-tight mb-4">
-                        <span data-lucide="sparkles"></span>
-                        <span>Super House Cleaning</span>
-                    </a>
-                    <p class="text-sm text-gray-400">
-                        Bringing Super-Clean standards to every home, every time. Trusted and guaranteed service.
-                    </p>
-                </div>
-
-                <!-- Column 2: Quick Links --><div>
-                    <h4 class="text-lg font-semibold mb-4 text-secondary">Quick Links</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#services" class="text-gray-400 hover:text-white transition duration-150">Services</a></li>
-                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition duration-150">Book Now</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-150">Our Guarantee</a></li>
-                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition duration-150">Testimonials</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Contact Info --><div>
-                    <h4 class="text-lg font-semibold mb-4 text-secondary">Get In Touch</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li class="flex items-center">
-                            <span data-lucide="phone" class="w-4 h-4 mr-2 text-gray-500"></span>
-                            <a href="tel:5551234567" class="text-gray-400 hover:text-white">(555) 123-4567</a>
-                        </li>
-                        <li class="flex items-center">
-                            <span data-lucide="mail" class="w-4 h-4 mr-2 text-gray-500"></span>
-                            <a href="mailto:contact@superhousecleaning.com" class="text-gray-400 hover:text-white">contact@superhousecleaning.com</a>
-                        </li>
-                        <li class="flex items-start">
-                            <span data-lucide="map-pin" class="w-4 h-4 mr-2 mt-1 text-gray-500 flex-shrink-0"></span>
-                            <span class="text-gray-400">123 Clean Street, Anytown, CA 90210</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Follow Us --><div>
-                    <h4 class="text-lg font-semibold mb-4 text-secondary">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-primary transition duration-150" aria-label="Facebook">
-                            <svg data-lucide="facebook" class="w-6 h-6"></svg>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-primary transition duration-150" aria-label="Instagram">
-                            <svg data-lucide="instagram" class="w-6 h-6"></svg>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-primary transition duration-150" aria-label="Twitter">
-                            <svg data-lucide="twitter" class="w-6 h-6"></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Copyright --><div class="text-center text-gray-500 text-sm">
-                &copy; <span id="current-year"></span> Super House Cleaning. All rights reserved.
-            </div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i data-lucide="sparkles" class="w-10 h-10 text-pink-600 mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Skin Treatments</h4>
+          <p class="text-gray-600">Bring back your youthful glow with advanced dermatological care.</p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- JavaScript for Interactivity --><script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-white fade-in">
+    <div class="container mx-auto px-6 text-center">
+      <h3 class="text-3xl font-bold mb-6 text-gray-800">About Us</h3>
+      <p class="text-gray-700 max-w-2xl mx-auto">
+        At CosmeticCare, our mission is to enhance your natural beauty safely and confidently.
+        Our team of certified surgeons and aesthetic specialists use cutting-edge techniques
+        to deliver results that inspire confidence and radiance.
+      </p>
+    </div>
+  </section>
+<!-- FAQ Section -->
+  <section id="faq" class="py-20 bg-gray-100 fade-in">
+    <div class="container mx-auto px-6">
+      <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Frequently Asked Questions</h3>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <button class="flex justify-between w-full text-left font-semibold text-gray-800 toggle-faq">
+            <span>Is cosmetic surgery safe?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+          </button>
+          <p class="hidden mt-2 text-gray-600">Yes, our procedures are performed by certified surgeons in fully equipped facilities.</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <button class="flex justify-between w-full text-left font-semibold text-gray-800 toggle-faq">
+            <span>How long does recovery take?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+          </button>
+          <p class="hidden mt-2 text-gray-600">Recovery varies by procedure but most clients resume normal activities within a few days.</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <button class="flex justify-between w-full text-left font-semibold text-gray-800 toggle-faq">
+            <span>Do you offer consultations?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+          </button>
+          <p class="hidden mt-2 text-gray-600">Yes, we provide personalized consultations to assess your needs and recommend treatments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // -----------------------------------------------------
-        // 1. Mobile Navigation Toggle Logic
-        // -----------------------------------------------------
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const closeIcon = document.getElementById('close-icon');
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-pink-50 fade-in">
+    <div class="container mx-auto px-6">
+      <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Contact Us</h3>
+      <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 mb-1">Full Name</label>
+            <input type="text" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-pink-400">
+          </div>
+          <div>
+            <label class="block text-gray-700 mb-1">Email</label>
+            <input type="email" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-pink-400">
+          </div>
+          <div>
+            <label class="block text-gray-700 mb-1">Message</label>
+            <textarea required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-pink-400" rows="4"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition">Send Message</button>
+        </form>
+        <p id="contact-message" class="hidden mt-4 text-green-600 text-center">Thank you for contacting us! We'll get back soon.</p>
+      </div>
+    </div>
+  </section>
+<!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-6 text-center">
+    <p>&copy; 2025 CosmeticCare. All rights reserved.</p>
+    <p class="mt-2">
+      <a href="https://wa.me/1234567890" target="_blank" class="text-pink-400 hover:underline">Chat on WhatsApp</a>
+    </p>
+  </footer>
 
-        const toggleMobileMenu = () => {
-            const isMenuOpen = mobileMenu.classList.contains('hidden');
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('hidden');
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            }
-        };
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
 
-        const closeMobileMenu = () => {
-             // Closes the menu, used when a link is clicked
-             if (!mobileMenu.classList.contains('hidden')) {
-                toggleMobileMenu();
-            }
-        };
-
-        menuButton.addEventListener('click', toggleMobileMenu);
-
-        // -----------------------------------------------------
-        // 2. Footer Year Update
-        // -----------------------------------------------------
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // -----------------------------------------------------
-        // 3. FAQ Accordion Logic
-        // -----------------------------------------------------
-        document.querySelectorAll('.faq-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.closest('.faq-item');
-                const content = item.querySelector('.faq-content');
-                const icon = button.querySelector('[data-lucide="chevron-down"]');
-
-                // Check if this item is currently open
-                const isCurrentlyOpen = content.classList.contains('open');
-
-                // Close all others first (optional, but good for UX)
-                document.querySelectorAll('.faq-content').forEach(c => {
-                    c.classList.remove('open', 'pb-6');
-                    c.classList.add('hidden');
-                });
-                document.querySelectorAll('.faq-toggle [data-lucide="chevron-down"]').forEach(i => {
-                    i.classList.remove('rotate-180');
-                });
-
-
-                if (!isCurrentlyOpen) {
-                    // Open the clicked item
-                    content.classList.remove('hidden');
-                    content.classList.add('open', 'pb-6');
-                    icon.classList.add('rotate-180');
-                } else {
-                     // The closing is handled by the "Close all others" block
-                     content.classList.remove('open', 'pb-6');
-                     content.classList.add('hidden');
-                     icon.classList.remove('rotate-180');
-                }
-            });
+      // Fade-in effect on scroll
+      const fadeElements = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
         });
+      }, { threshold: 0.2 });
+      fadeElements.forEach(el => observer.observe(el));
 
-        // -----------------------------------------------------
-        // 4. Instant Quote Simulator Logic
-        // -----------------------------------------------------
-        const quoteForm = document.getElementById('quote-form');
-        const bedroomsInput = document.getElementById('bedrooms');
-        const quoteResult = document.getElementById('quote-result');
-        const finalPriceDisplay = document.getElementById('final-price');
-        const quoteDetailsDisplay = document.getElementById('quote-details');
-        const quoteError = document.getElementById('quote-error');
-        const roomSelectors = document.querySelectorAll('.room-selector');
-        const frequencyOptions = document.querySelectorAll('.frequency-option');
-
-        // Bedroom Selector Handlers
-        roomSelectors.forEach(selector => {
-            selector.addEventListener('click', () => {
-                // Remove active state from all
-                roomSelectors.forEach(s => s.classList.remove('bg-primary', 'text-white'));
-                // Add active state to clicked
-                selector.classList.add('bg-primary', 'text-white');
-                // Set hidden input value
-                bedroomsInput.value = selector.dataset.value;
-                document.getElementById('room-error').classList.add('hidden');
-            });
+      // FAQ toggle logic
+      document.querySelectorAll('.toggle-faq').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const p = btn.nextElementSibling;
+          const icon = btn.querySelector('i');
+          p.classList.toggle('hidden');
+          icon.classList.toggle('rotate-180');
+          lucide.createIcons();
         });
+      });
 
-        // Frequency Option Handlers (for visual feedback)
-        frequencyOptions.forEach(label => {
-            const radio = label.querySelector('input[type="radio"]');
-            radio.addEventListener('change', () => {
-                frequencyOptions.forEach(l => l.classList.remove('border-secondary', 'bg-blue-50'));
-                if (radio.checked) {
-                    label.classList.add('border-secondary', 'bg-blue-50');
-                }
-            });
-        });
-
-        // Main Form Submission Handler
-        quoteForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Clear previous results/errors
-            quoteResult.classList.add('hidden');
-            quoteError.classList.add('hidden');
-
-            const cleaningType = document.getElementById('cleaning-type').value;
-            const bedrooms = bedroomsInput.value;
-            const frequency = document.querySelector('input[name="frequency"]:checked')?.value;
-
-            // Simple validation
-            if (!cleaningType || !bedrooms || !frequency) {
-                if (!bedrooms) {
-                    document.getElementById('room-error').classList.remove('hidden');
-                }
-                quoteError.classList.remove('hidden');
-                return;
-            }
-
-            // Define base prices (simulated, based on 2-bedroom standard clean)
-            let basePrice = 120; // Default base price for 1 bedroom
-            let typeMultiplier = 1.0;
-            let sizeFactor = 1.0;
-            let discount = 0.0;
-            let frequencyText = "";
-            let typeText = "";
-
-            // 1. Apply Size Factor
-            switch (bedrooms) {
-                case '1': sizeFactor = 1.0; break; // $120
-                case '2': sizeFactor = 1.35; break; // $162
-                case '3': sizeFactor = 1.7; break; // $204
-                case '4+': sizeFactor = 2.2; basePrice = 140; break; // For 4+ bedrooms, higher base and multiplier for larger homes
-            }
-            let initialPrice = basePrice * sizeFactor;
-
-            // 2. Apply Cleaning Type Multiplier
-            switch (cleaningType) {
-                case 'standard':
-                    typeMultiplier = 1.0;
-                    typeText = "Standard Clean";
-                    break;
-                case 'deep':
-                    typeMultiplier = 1.4; // 40% more for deep clean
-                    typeText = "Deep Clean (Recommended)";
-                    break;
-                case 'move':
-                    typeMultiplier = 1.8; // 80% more for move in/out
-                    typeText = "Move In/Out Clean";
-                    break;
-            }
-            initialPrice *= typeMultiplier;
-
-
-            // 3. Apply Frequency Discount
-            switch (frequency) {
-                case 'one-time':
-                    discount = 0;
-                    frequencyText = "One-Time Service (No Discount)";
-                    break;
-                case 'bi-weekly':
-                    discount = 0.15; // 15% discount
-                    frequencyText = "Bi-Weekly Service (15% Savings!)";
-                    break;
-                case 'weekly':
-                    discount = 0.20; // 20% discount
-                    frequencyText = "Weekly Service (20% Savings!)";
-                    break;
-            }
-            const finalPrice = initialPrice * (1 - discount);
-
-            // Format the final price
-            const formattedPrice = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2
-            }).format(finalPrice);
-
-            // Update result display
-            finalPriceDisplay.textContent = formattedPrice;
-            quoteDetailsDisplay.innerHTML = `
-                <p><strong>Package:</strong> ${typeText} (${bedrooms} Bedrooms)</p>
-                <p><strong>Frequency:</strong> ${frequencyText}</p>
-                ${discount > 0 ? `<p class="text-accent font-semibold">You saved: ${new Intl.NumberFormat('en-US', { style: 'percent', minimumFractionDigits: 0 }).format(discount)} on this quote!</p>` : ''}
-                <p class="mt-2 text-sm text-blue-200">This is an estimate. Final price confirmed upon on-site assessment.</p>
-            `;
-
-            quoteResult.classList.remove('hidden');
-
-            // Scroll to the quote result for better mobile UX
-            quoteResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    </script>
-
+      // Contact form handler
+      const form = document.getElementById('contact-form');
+      const msg = document.getElementById('contact-message');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        msg.classList.remove('hidden');
+        form.reset();
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  </script>
 </body>
 </html>
-
