@@ -3,355 +3,777 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleek Responsive Weather Dashboard</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles for the app background and font */
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            transition: background-color 0.5s ease;
-        }
-
-        /* Base background gradient (Fallback) */
-        .app-background {
-            background-image: linear-gradient(135deg, #1f2937 0%, #000000 100%);
-        }
-
-        /* Dynamic background classes based on weather condition */
-        .bg-sunny {
-            background-image: linear-gradient(135deg, #2b6cb0 0%, #3182ce 100%);
-        }
-        .bg-rain {
-            background-image: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-        }
-        .bg-cloudy {
-            background-image: linear-gradient(135deg, #718096 0%, #a0aec0 100%);
-        }
-        .bg-storm {
-            background-image: linear-gradient(135deg, #1a202c 0%, #000000 100%);
-        }
-
-        /* Frosted Glass Effect for the Card (Main Styling) */
-        .frosted-glass {
-            background-color: rgba(30, 41, 59, 0.4); /* Slate-800 with transparency */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* For Safari support */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Custom scrollbar for forecast (optional, for aesthetics) */
-        .forecast-scroll::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .forecast-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-
-        .forecast-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-    </style>
+    <title>Super House Cleaning - Premium Home Cleaning Services</title>
+    <!-- Load Tailwind CSS CDN with custom color configuration --><script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Correct way to define custom colors with Tailwind CDN
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'card-bg': 'rgba(30, 41, 59, 0.6)',
-                        'accent-blue': '#60a5fa',
-                        'light-text': '#e5e7eb'
+                        'primary': '#1e40af', /* Dark Blue - Trust */
+                        'secondary': '#38bdf8', /* Light Blue/Cyan - Cleanliness */
+                        'accent': '#fbbf24', /* Yellow - Highlight */
+                        'bg-light': '#f1f5f9', /* Light Gray/Blue */
                     },
+                    boxShadow: {
+                        'custom': '0 10px 30px -15px rgba(30, 64, 175, 0.3)',
+                    }
                 }
             }
         }
     </script>
+    <!-- Load Lucide Icons for aesthetic vectors --><script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for the Inter font and smooth scrolling */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* light blue-gray background */
+        }
+       
+        /* Custom scrollbar for aesthetics (optional but adds polish) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+    </style>
 </head>
-<body class="app-background" id="app-body">
 
-    <!-- Main Weather Dashboard Container -->
-    <div id="weather-container" class="w-full max-w-4xl mx-auto text-white rounded-2xl shadow-2xl p-6 md:p-10 frosted-glass transform transition-all duration-700 ease-in-out">
-        
-        <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-8 tracking-wider text-accent-blue drop-shadow-lg">Global Weather Dashboard</h1>
+<body class="text-gray-800">
 
-        <!-- Search Input Section -->
-        <div class="flex flex-col md:flex-row gap-3 mb-8">
-            <input type="text" id="city-input" placeholder="Enter City (e.g., London, New York)" 
-                   class="flex-grow p-4 rounded-xl bg-white/10 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-blue placeholder-gray-300 text-light-text text-lg shadow-inner"
-                   onkeydown="if (event.key === 'Enter') searchWeather()">
-            <button onclick="searchWeather()" class="px-6 py-4 bg-accent-blue hover:bg-blue-700 transition duration-300 rounded-xl shadow-lg font-semibold text-lg flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                </svg>
-                Get Weather
-            </button>
-        </div>
+    <!-- 1. Header and Responsive Navigation --><header class="sticky top-0 z-50 bg-white shadow-lg transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo --><a href="#" class="flex items-center space-x-2 text-primary text-2xl font-extrabold tracking-tight">
+                    <span class="text-secondary" data-lucide="sparkles"></span>
+                    <span>Super House Cleaning</span>
+                </a>
 
-        <!-- Weather Display Area -->
-        <div id="weather-data" class="min-h-[250px] flex items-center justify-center">
-            <!-- Initial Prompt -->
-            <div class="text-center p-6 bg-white/5 rounded-xl border border-white/10">
-                <p class="text-xl text-gray-300">Start by searching for a city. Examples: <span class="font-semibold text-accent-blue">London, New York, Tokyo, Sydney.</span></p>
-                <p class="text-sm text-gray-500 mt-2">Data is simulated for demonstration.</p>
+                <!-- Desktop Navigation Links --><nav class="hidden md:flex space-x-8 font-medium">
+                    <a href="#services" class="hover:text-secondary transition duration-150">Services</a>
+                    <a href="#about" class="hover:text-secondary transition duration-150">Why Us</a>
+                    <a href="#pricing" class="hover:text-secondary transition duration-150">Pricing</a>
+                    <a href="#testimonials" class="hover:text-secondary transition duration-150">Reviews</a>
+                    <a href="#faq" class="hover:text-secondary transition duration-150">FAQ</a>
+                </nav>
+
+                <!-- Call to Action Button (Desktop) --><a href="#pricing" class="hidden md:block bg-accent hover:bg-yellow-500 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300 transform hover:scale-105">
+                    Book Now
+                </a>
+
+                <!-- Mobile Menu Button (Hamburger) --><button id="mobile-menu-button" class="md:hidden p-2 text-primary focus:outline-none">
+                    <span data-lucide="menu" id="menu-icon" class="w-6 h-6"></span>
+                    <span data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></span>
+                </button>
             </div>
         </div>
 
-        <!-- Loading Indicator -->
-        <div id="loading-spinner" class="hidden text-center mt-8">
-            <div class="animate-spin rounded-full h-10 w-10 border-b-4 border-accent-blue mx-auto"></div>
-            <p class="mt-3 text-xl text-accent-blue font-medium">Fetching the latest forecast...</p>
+        <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 py-4 shadow-xl">
+            <div class="px-2 pt-2 pb-3 space-y-2 font-medium">
+                <a href="#services" class="block py-2 px-3 rounded-md text-primary bg-bg-light hover:bg-gray-100 transition duration-150" onclick="closeMobileMenu()">Services</a>
+                <a href="#about" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">Why Us</a>
+                <a href="#pricing" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">Pricing</a>
+                <a href="#testimonials" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">Reviews</a>
+                <a href="#faq" class="block py-2 px-3 rounded-md text-gray-700 hover:bg-bg-light transition duration-150" onclick="closeMobileMenu()">FAQ</a>
+                <a href="#pricing" class="block text-center mt-4 bg-primary text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-800 transition duration-300">
+                    Get an Instant Quote
+                </a>
+            </div>
         </div>
+    </header>
 
-        <!-- Error/Modal Message Box -->
-        <div id="error-message" class="hidden p-4 mt-6 bg-red-900/40 border border-red-500/50 rounded-lg text-red-200 text-center">
-            <!-- Error messages will appear here -->
+    <main>
+        <!-- 2. Hero Section --><section class="bg-primary text-white pt-20 pb-24 md:pt-32 md:pb-40 relative overflow-hidden">
+            <!-- Background Decoration (Subtle waves/gradients) --><div class="absolute inset-0 opacity-10">
+                <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#38bdf8" fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,80C384,75,480,117,576,149.3C672,181,768,203,864,186.7C960,171,1056,117,1152,106.7C1248,96,1344,128,1392,144L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+                </svg>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center">
+                    <p class="text-secondary text-lg font-semibold mb-3 tracking-wider uppercase">
+                        The Future of Clean is Here
+                    </p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        Experience the Super House Cleaning Difference
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-blue-200 mb-10 max-w-3xl mx-auto">
+                        Trusted, Vetted, and Guaranteed. We bring sparkle back to your home so you can reclaim your time.
+                    </p>
+                    <a href="#pricing" class="inline-flex items-center bg-accent hover:bg-yellow-500 text-primary font-extrabold py-4 px-10 rounded-full shadow-xl transition duration-300 transform hover:scale-105 ring-4 ring-white ring-opacity-50">
+                        <span data-lucide="calendar-check" class="w-6 h-6 mr-3"></span>
+                        Book Your First Clean Now!
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Why Choose Us (Features) Section --><section id="about" class="py-16 md:py-24 bg-bg-light -mt-16 rounded-t-3xl relative z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                        Why Super House Cleaning?
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        We are committed to reliability, professionalism, and delivering an unmatched clean every time.
+                    </p>
+                </div>
+
+                <!-- Feature Grid (Responsive) --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <!-- Feature 1 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="text-secondary mb-4 flex justify-center">
+                            <span data-lucide="shield-check" class="w-10 h-10 stroke-1.5"></span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-primary">Fully Insured & Licensed</h3>
+                        <p class="text-gray-500 text-sm">
+                            Peace of mind comes standard. We are fully covered for all services provided in your home.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="text-secondary mb-4 flex justify-center">
+                            <span data-lucide="refresh-cw" class="w-10 h-10 stroke-1.5"></span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-primary">24-Hour Guarantee</h3>
+                        <p class="text-gray-500 text-sm">
+                            If you're not happy, we'll return and fix it for free within 24 hours. No questions asked.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="text-secondary mb-4 flex justify-center">
+                            <span data-lucide="leaf" class="w-10 h-10 stroke-1.5"></span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-primary">Eco-Friendly Products</h3>
+                        <p class="text-gray-500 text-sm">
+                            We prioritize the health of your family and pets with safe, non-toxic, green cleaning supplies.
+                        </p>
+                    </div>
+
+                    <!-- Feature 4 --><div class="p-6 bg-white rounded-xl shadow-custom text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="text-secondary mb-4 flex justify-center">
+                            <span data-lucide="clock" class="w-10 h-10 stroke-1.5"></span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-primary">Easy Online Booking</h3>
+                        <p class="text-gray-500 text-sm">
+                            Get a quote and schedule your clean in less than 60 seconds, anytime, anywhere.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Services Overview Section --><section id="services" class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                        Our Super Cleaning Packages
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        Choose the service that best fits your needs, from a quick refresh to a complete overhaul.
+                    </p>
+                </div>
+
+                <!-- Service Cards Grid (Responsive) --><div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <!-- Service Card 1: Standard Clean --><div class="bg-white border-4 border-primary/10 rounded-xl shadow-2xl p-6 flex flex-col transition duration-500 hover:shadow-custom hover:scale-[1.02]">
+                        <div class="text-center">
+                            <span data-lucide="sparkle" class="w-12 h-12 text-secondary mx-auto mb-4 fill-secondary/20"></span>
+                            <h3 class="text-2xl font-extrabold text-primary mb-2">Standard Clean</h3>
+                            <p class="text-gray-500 mb-6">Perfect for regular maintenance and scheduled cleanings.</p>
+                        </div>
+                        <ul class="space-y-3 flex-grow mb-6 text-gray-700">
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                               <span>Dusting of all accessible surfaces</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Floor cleaning (vacuum/mop)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Wipe down kitchen counters and stovetop</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Bathroom cleaning (toilets, mirrors, basic wipe down)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Trash removal</span>
+                            </li>
+                        </ul>
+                        <a href="#pricing" class="mt-auto block text-center bg-primary text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-800 transition duration-300">
+                            Select Standard
+                        </a>
+                    </div>
+
+                    <!-- Service Card 2: Deep Clean (Highlighted) --><div class="bg-primary text-white border-4 border-accent rounded-xl shadow-2xl p-8 flex flex-col relative transform scale-100 lg:scale-[1.05] z-10 transition duration-500 hover:shadow-custom hover:scale-[1.07]">
+                        <div class="absolute top-0 right-0 bg-accent text-primary font-bold text-xs px-4 py-1 rounded-bl-xl rounded-tr-xl">
+                            BEST VALUE
+                        </div>
+                        <div class="text-center">
+                            <span data-lucide="clean-hands" class="w-12 h-12 text-accent mx-auto mb-4 fill-accent/30"></span>
+                            <h3 class="text-3xl font-extrabold mb-2">Deep Clean</h3>
+                            <p class="text-blue-200 mb-6">Our most popular choice for first-time or seasonal cleaning.</p>
+                        </div>
+                        <ul class="space-y-3 flex-grow mb-6 text-blue-100">
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
+                                <span>**Everything in Standard Clean**</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Detailed scrubbing of kitchen/bathroom tile grout</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Inside windows and window tracks (easily accessible)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Wipe down baseboards, door frames, and light fixtures</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-accent mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Extra attention to tough-to-reach dust areas</span>
+                            </li>
+                        </ul>
+                        <a href="#pricing" class="mt-auto block text-center bg-accent text-primary font-extrabold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition duration-300 transform hover:scale-[1.02]">
+                            Get Deep Clean Quote
+                        </a>
+                    </div>
+
+                    <!-- Service Card 3: Move In/Out Clean --><div class="bg-white border-4 border-primary/10 rounded-xl shadow-2xl p-6 flex flex-col transition duration-500 hover:shadow-custom hover:scale-[1.02]">
+                        <div class="text-center">
+                            <span data-lucide="box" class="w-12 h-12 text-secondary mx-auto mb-4 fill-secondary/20"></span>
+                            <h3 class="text-2xl font-extrabold text-primary mb-2">Move In/Out Clean</h3>
+                            <p class="text-gray-500 mb-6">Essential for deposit refunds or welcoming new homeowners.</p>
+                        </div>
+                        <ul class="space-y-3 flex-grow mb-6 text-gray-700">
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>**Everything in Deep Clean**</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Inside cabinets and drawers (empty)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Inside of refrigerator and freezer (empty)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Inside of the oven and microwave</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1"></span>
+                                <span>Sanitization of all surfaces</span>
+                            </li>
+                        </ul>
+                        <a href="#pricing" class="mt-auto block text-center bg-primary text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-800 transition duration-300">
+                            Request Move Clean
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Instant Quote/Pricing Simulator Section --><section id="pricing" class="py-16 md:py-24 bg-bg-light">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                        Get Your Instant Super Quote
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Select your home size and cleaning type for a transparent estimate in seconds.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-t-4 border-secondary">
+                    <form id="quote-form" class="space-y-6">
+                        <!-- Step 1: Cleaning Type --><div>
+                            <label for="cleaning-type" class="block text-lg font-medium text-gray-700 mb-2">
+                                1. Select Cleaning Service Type
+                            </label>
+                            <select id="cleaning-type" name="cleaning-type" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150 text-base">
+                                <option value="" disabled selected>Choose a package...</option>
+                                <option value="standard">Standard Clean</option>
+                                <option value="deep">Deep Clean (Recommended)</option>
+                                <option value="move">Move In/Out Clean</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 2: Home Size --><div>
+                            <label for="bedrooms" class="block text-lg font-medium text-gray-700 mb-2">
+                                2. Number of Bedrooms
+                            </label>
+                            <div class="flex flex-wrap gap-4">
+                                <button type="button" data-value="1" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">1 Bedroom</button>
+                                <button type="button" data-value="2" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">2 Bedrooms</button>
+                                <button type="button" data-value="3" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">3 Bedrooms</button>
+                                <button type="button" data-value="4+" class="room-selector px-5 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition duration-200">4+ Bedrooms</button>
+                            </div>
+                            <input type="hidden" id="bedrooms" name="bedrooms" required>
+                            <p id="room-error" class="text-red-500 text-sm mt-2 hidden">Please select a bedroom count.</p>
+                        </div>
+
+                        <!-- Step 3: Frequency --><div>
+                            <label for="frequency" class="block text-lg font-medium text-gray-700 mb-2">
+                                3. Choose Frequency
+                            </label>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="frequency-option border border-gray-300 p-4 rounded-lg flex items-center cursor-pointer transition duration-150 hover:shadow-md">
+                                    <input type="radio" name="frequency" value="one-time" class="h-4 w-4 text-primary focus:ring-primary mr-2" required>
+                                    One-Time
+                                </label>
+                                <label class="frequency-option border border-gray-300 p-4 rounded-lg flex items-center cursor-pointer transition duration-150 hover:shadow-md">
+                                    <input type="radio" name="frequency" value="weekly" class="h-4 w-4 text-primary focus:ring-primary mr-2">
+                                    Weekly (Save 20%)
+                                </label>
+                                <label class="frequency-option border border-gray-300 p-4 rounded-lg flex items-center cursor-pointer transition duration-150 hover:shadow-md">
+                                    <input type="radio" name="frequency" value="bi-weekly" class="h-4 w-4 text-primary focus:ring-primary mr-2">
+                                    Bi-Weekly (Save 15%)
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-accent hover:bg-yellow-500 text-primary font-extrabold py-4 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-[1.01]">
+                            Calculate Super Quote
+                        </button>
+                    </form>
+
+                    <!-- Quote Result Display --><div id="quote-result" class="mt-8 p-6 bg-secondary text-white rounded-xl shadow-xl hidden">
+                        <h3 class="text-2xl font-bold mb-3 flex items-center">
+                            <span data-lucide="dollar-sign" class="w-6 h-6 mr-2"></span>
+                            Your Estimated Super Quote:
+                        </h3>
+                        <p class="text-4xl font-extrabold mb-4" id="final-price">$0.00</p>
+                        <p id="quote-details" class="text-blue-100"></p>
+                        <button onclick="document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });" class="mt-4 bg-white text-primary font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300">
+                            Book Your Service
+                        </button>
+                    </div>
+
+                    <!-- Error Message Display --><div id="quote-error" class="mt-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg hidden">
+                        <p class="font-medium">
+                            Please ensure you select a Cleaning Type, Number of Bedrooms, and Frequency before calculating your quote.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Testimonials Section --><section id="testimonials" class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                        What Our Customers Say
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Real feedback from real people who trust us with their homes.
+                    </p>
+                </div>
+
+                <!-- Testimonial Grid (Simulated Carousel - just show two cards for simplicity) --><div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Testimonial 1 --><div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-accent transition duration-300 hover:shadow-2xl">
+                        <div class="flex items-center mb-4">
+                            <!-- Star Rating (using Lucide icons) --><div class="flex text-accent mr-3">
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                            </div>
+                            <span class="text-gray-500 text-sm">5 days ago</span>
+                        </div>
+                        <p class="text-xl font-medium italic text-gray-700 mb-6">
+                            "The Deep Clean service was truly exceptional. They found dust I didn't even know existed! My house feels brand new. I signed up for bi-weekly service immediately."
+                        </p>
+                        <div class="flex items-center">
+                            <!-- Placeholder Image (using placehold.co) --><img src="https://placehold.co/40x40/1e40af/ffffff?text=JK" alt="Customer Avatar" class="w-10 h-10 rounded-full mr-3 border-2 border-primary">
+                            <div>
+                                <p class="font-semibold text-primary">Jessica K.</p>
+                                <p class="text-sm text-gray-500">Local Resident, 3-Bedroom Home</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 --><div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-accent transition duration-300 hover:shadow-2xl">
+                        <div class="flex items-center mb-4">
+                            <!-- Star Rating (using Lucide icons) --><div class="flex text-accent mr-3">
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                                <span data-lucide="star" class="w-5 h-5 fill-accent"></span>
+                            </div>
+                            <span class="text-gray-500 text-sm">2 weeks ago</span>
+                        </div>
+                        <p class="text-xl font-medium italic text-gray-700 mb-6">
+                            "Super House Cleaning made our move-out process stress-free. The house passed the landlord inspection with flying colors. Worth every penny. Highly professional team."
+                        </p>
+                        <div class="flex items-center">
+                            <!-- Placeholder Image (using placehold.co) --><img src="https://placehold.co/40x40/1e40af/ffffff?text=MB" alt="Customer Avatar" class="w-10 h-10 rounded-full mr-3 border-2 border-primary">
+                            <div>
+                                <p class="font-semibold text-primary">Mark B.</p>
+                                <p class="text-sm text-gray-500">Real Estate Investor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FAQ Section (Accordion) --><section id="faq" class="py-16 md:py-24 bg-bg-light">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                        Frequently Asked Questions
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Get quick answers to the most common inquiries about our service.
+                    </p>
+                </div>
+
+                <!-- FAQ Accordion Container --><div class="space-y-4">
+
+                    <!-- FAQ Item 1 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
+                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-semibold text-primary">Are your cleaners insured and background-checked?</span>
+                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
+                        </button>
+                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
+                            <p>Absolutely. For your safety and peace of mind, every member of the Super House Cleaning team is fully insured, bonded, and undergoes a rigorous national background check before being hired.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
+                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-semibold text-primary">Do I need to provide cleaning supplies?</span>
+                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
+                        </button>
+                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
+                            <p>No, we bring all the necessary professional-grade equipment and eco-friendly cleaning solutions. If you have specific, specialty products you would like us to use, please leave them out and let us know in your booking notes!</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
+                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-semibold text-primary">What if I need to reschedule or cancel?</span>
+                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
+                        </button>
+                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
+                            <p>We require a minimum of 24 hours notice for any cancellation or rescheduling to avoid a cancellation fee. You can easily manage your bookings through our online portal.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 --><div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-secondary/50">
+                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-semibold text-primary">Is there a discount for recurring services?</span>
+                            <span data-lucide="chevron-down" class="w-6 h-6 text-primary transition-transform duration-300"></span>
+                        </button>
+                        <div class="faq-content p-6 pt-0 text-gray-700 hidden">
+                            <p>Yes! We offer substantial savings for recurring cleans: 20% off for weekly services and 15% off for bi-weekly services. These discounts are automatically applied when you select the frequency in the quote calculator.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 8. Footer Section --><footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-8 mb-8">
+
+                <!-- Column 1: Logo and Mission --><div>
+                    <a href="#" class="flex items-center space-x-2 text-secondary text-xl font-extrabold tracking-tight mb-4">
+                        <span data-lucide="sparkles"></span>
+                        <span>Super House Cleaning</span>
+                    </a>
+                    <p class="text-sm text-gray-400">
+                        Bringing Super-Clean standards to every home, every time. Trusted and guaranteed service.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links --><div>
+                    <h4 class="text-lg font-semibold mb-4 text-secondary">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition duration-150">Services</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition duration-150">Book Now</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-150">Our Guarantee</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition duration-150">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact Info --><div>
+                    <h4 class="text-lg font-semibold mb-4 text-secondary">Get In Touch</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <span data-lucide="phone" class="w-4 h-4 mr-2 text-gray-500"></span>
+                            <a href="tel:5551234567" class="text-gray-400 hover:text-white">(555) 123-4567</a>
+                        </li>
+                        <li class="flex items-center">
+                            <span data-lucide="mail" class="w-4 h-4 mr-2 text-gray-500"></span>
+                            <a href="mailto:contact@superhousecleaning.com" class="text-gray-400 hover:text-white">contact@superhousecleaning.com</a>
+                        </li>
+                        <li class="flex items-start">
+                            <span data-lucide="map-pin" class="w-4 h-4 mr-2 mt-1 text-gray-500 flex-shrink-0"></span>
+                            <span class="text-gray-400">123 Clean Street, Anytown, CA 90210</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Follow Us --><div>
+                    <h4 class="text-lg font-semibold mb-4 text-secondary">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-150" aria-label="Facebook">
+                            <svg data-lucide="facebook" class="w-6 h-6"></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-150" aria-label="Instagram">
+                            <svg data-lucide="instagram" class="w-6 h-6"></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-150" aria-label="Twitter">
+                            <svg data-lucide="twitter" class="w-6 h-6"></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright --><div class="text-center text-gray-500 text-sm">
+                &copy; <span id="current-year"></span> Super House Cleaning. All rights reserved.
+            </div>
         </div>
+    </footer>
 
-    </div>
+    <!-- JavaScript for Interactivity --><script>
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-    <script>
-        // Set the global font for all content
-        document.body.style.fontFamily = 'Inter, sans-serif';
+        // -----------------------------------------------------
+        // 1. Mobile Navigation Toggle Logic
+        // -----------------------------------------------------
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
 
-        // --- Core Application Logic ---
-
-        // 1. Mock Data for Simulation (Expanded with multi-day forecast and conditions)
-        const MOCK_WEATHER_DATA = {
-            "london": {
-                current: { temp: 15, description: "Light Rain", icon: "🌧️", humidity: 75, windSpeed: 12, feelsLike: 14, condition: "rain", pressure: 1012, uvIndex: 3 },
-                forecast: [
-                    { day: "Sun", temp: 16, icon: "🌧️" },
-                    { day: "Mon", temp: 18, icon: "☁️" },
-                    { day: "Tue", temp: 20, icon: "🌤️" },
-                    { day: "Wed", temp: 17, icon: "🌧️" }
-                ]
-            },
-            "new york": {
-                current: { temp: 28, description: "Sunny and Clear Skies", icon: "☀️", humidity: 55, windSpeed: 5, feelsLike: 30, condition: "sunny", pressure: 1020, uvIndex: 8 },
-                forecast: [
-                    { day: "Sun", temp: 29, icon: "☀️" },
-                    { day: "Mon", temp: 27, icon: "☀️" },
-                    { day: "Tue", temp: 25, icon: "🌤️" },
-                    { day: "Wed", temp: 26, icon: "☁️" }
-                ]
-            },
-            "tokyo": {
-                current: { temp: 22, description: "Partly Cloudy", icon: "☁️", humidity: 68, windSpeed: 8, feelsLike: 23, condition: "cloudy", pressure: 1015, uvIndex: 5 },
-                forecast: [
-                    { day: "Sun", temp: 23, icon: "☁️" },
-                    { day: "Mon", temp: 25, icon: "🌤️" },
-                    { day: "Tue", temp: 21, icon: "🌧️" },
-                    { day: "Wed", temp: 24, icon: "☀️" }
-                ]
-            },
-            "sydney": {
-                current: { temp: 32, description: "Storms Developing", icon: "⛈️", humidity: 80, windSpeed: 25, feelsLike: 34, condition: "storm", pressure: 998, uvIndex: 6 },
-                forecast: [
-                    { day: "Sun", temp: 30, icon: "⛈️" },
-                    { day: "Mon", temp: 28, icon: "🌧️" },
-                    { day: "Tue", temp: 26, icon: "☁️" },
-                    { day: "Wed", temp: 27, icon: "☀️" }
-                ]
+        const toggleMobileMenu = () => {
+            const isMenuOpen = mobileMenu.classList.contains('hidden');
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
             }
         };
 
-        // 2. DOM Elements
-        const cityInput = document.getElementById('city-input');
-        const weatherDataEl = document.getElementById('weather-data');
-        const loadingSpinner = document.getElementById('loading-spinner');
-        const appBody = document.getElementById('app-body');
-        const errorMessageEl = document.getElementById('error-message');
-
-        /**
-         * Utility function to display custom messages (like alerts/errors).
-         * @param {string} message - The message to display.
-         * @param {boolean} isError - True for error style, false for success/info.
-         */
-        function showMessage(message, isError = true) {
-            errorMessageEl.innerHTML = `<p class="font-semibold">${isError ? 'Error: ' : 'Info: '}</p><p>${message}</p>`;
-            errorMessageEl.classList.remove('hidden');
-            errorMessageEl.classList.toggle('bg-red-900/40', isError);
-            errorMessageEl.classList.toggle('border-red-500/50', isError);
-            errorMessageEl.classList.toggle('bg-green-900/40', !isError);
-            errorMessageEl.classList.toggle('border-green-500/50', !isError);
-            
-            // Auto-hide after 5 seconds
-            setTimeout(() => {
-                errorMessageEl.classList.add('hidden');
-            }, 5000);
-        }
-
-        /**
-         * Sets the dynamic background based on the weather condition.
-         * @param {string} condition - The weather condition string.
-         */
-        function setDynamicBackground(condition) {
-            // Remove all existing background classes
-            appBody.classList.remove('bg-sunny', 'bg-rain', 'bg-cloudy', 'bg-storm', 'app-background');
-
-            // Add the appropriate dynamic class or fallback
-            switch (condition.toLowerCase()) {
-                case 'sunny':
-                    appBody.classList.add('bg-sunny');
-                    break;
-                case 'rain':
-                    appBody.classList.add('bg-rain');
-                    break;
-                case 'cloudy':
-                    appBody.classList.add('bg-cloudy');
-                    break;
-                case 'storm':
-                    appBody.classList.add('bg-storm');
-                    break;
-                default:
-                    appBody.classList.add('app-background'); // Fallback to base gradient
+        const closeMobileMenu = () => {
+             // Closes the menu, used when a link is clicked
+             if (!mobileMenu.classList.contains('hidden')) {
+                toggleMobileMenu();
             }
-        }
+        };
 
-        /**
-         * Simulates fetching weather data from a remote API.
-         * @param {string} city - The city name to search for.
-         * @returns {Promise<object>} A promise that resolves with weather data or rejects if the city is unknown.
-         */
-        function fetchWeather(city) {
-            return new Promise((resolve, reject) => {
-                // Simulate network latency (1.5 seconds)
-                setTimeout(() => {
-                    const normalizedCity = city.toLowerCase().trim();
-                    const data = MOCK_WEATHER_DATA[normalizedCity];
-                    
-                    if (data) {
-                        resolve({ 
-                            city: city.trim().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-                            ...data
-                        });
-                    } else {
-                        reject(new Error("City data not found. Please try one of the simulated cities: London, New York, Tokyo, or Sydney."));
-                    }
-                }, 1500); 
+        menuButton.addEventListener('click', toggleMobileMenu);
+
+        // -----------------------------------------------------
+        // 2. Footer Year Update
+        // -----------------------------------------------------
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // -----------------------------------------------------
+        // 3. FAQ Accordion Logic
+        // -----------------------------------------------------
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.faq-item');
+                const content = item.querySelector('.faq-content');
+                const icon = button.querySelector('[data-lucide="chevron-down"]');
+
+                // Check if this item is currently open
+                const isCurrentlyOpen = content.classList.contains('open');
+
+                // Close all others first (optional, but good for UX)
+                document.querySelectorAll('.faq-content').forEach(c => {
+                    c.classList.remove('open', 'pb-6');
+                    c.classList.add('hidden');
+                });
+                document.querySelectorAll('.faq-toggle [data-lucide="chevron-down"]').forEach(i => {
+                    i.classList.remove('rotate-180');
+                });
+
+
+                if (!isCurrentlyOpen) {
+                    // Open the clicked item
+                    content.classList.remove('hidden');
+                    content.classList.add('open', 'pb-6');
+                    icon.classList.add('rotate-180');
+                } else {
+                     // The closing is handled by the "Close all others" block
+                     content.classList.remove('open', 'pb-6');
+                     content.classList.add('hidden');
+                     icon.classList.remove('rotate-180');
+                }
             });
-        }
+        });
 
-        /**
-         * Generates the HTML for the detailed current weather and 4-day forecast.
-         * @param {object} data - The complete weather data object.
-         */
-        function generateWeatherHtml(data) {
-            const current = data.current;
+        // -----------------------------------------------------
+        // 4. Instant Quote Simulator Logic
+        // -----------------------------------------------------
+        const quoteForm = document.getElementById('quote-form');
+        const bedroomsInput = document.getElementById('bedrooms');
+        const quoteResult = document.getElementById('quote-result');
+        const finalPriceDisplay = document.getElementById('final-price');
+        const quoteDetailsDisplay = document.getElementById('quote-details');
+        const quoteError = document.getElementById('quote-error');
+        const roomSelectors = document.querySelectorAll('.room-selector');
+        const frequencyOptions = document.querySelectorAll('.frequency-option');
 
-            // Generate HTML for the 4-day forecast
-            const forecastHtml = data.forecast.map(day => `
-                <div class="flex flex-col items-center justify-center p-4 bg-white/5 rounded-xl transition duration-300 hover:bg-white/10 shadow-md">
-                    <p class="text-sm font-semibold text-gray-300">${day.day}</p>
-                    <div class="text-3xl my-2">${day.icon}</div>
-                    <p class="text-xl font-bold text-light-text">${day.temp}°C</p>
-                </div>
-            `).join('');
+        // Bedroom Selector Handlers
+        roomSelectors.forEach(selector => {
+            selector.addEventListener('click', () => {
+                // Remove active state from all
+                roomSelectors.forEach(s => s.classList.remove('bg-primary', 'text-white'));
+                // Add active state to clicked
+                selector.classList.add('bg-primary', 'text-white');
+                // Set hidden input value
+                bedroomsInput.value = selector.dataset.value;
+                document.getElementById('room-error').classList.add('hidden');
+            });
+        });
 
+        // Frequency Option Handlers (for visual feedback)
+        frequencyOptions.forEach(label => {
+            const radio = label.querySelector('input[type="radio"]');
+            radio.addEventListener('change', () => {
+                frequencyOptions.forEach(l => l.classList.remove('border-secondary', 'bg-blue-50'));
+                if (radio.checked) {
+                    label.classList.add('border-secondary', 'bg-blue-50');
+                }
+            });
+        });
 
-            return `
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    
-                    <!-- 1. Current Weather (Large Column on Mobile, 2/3rds on Desktop) -->
-                    <div class="lg:col-span-2 p-6 rounded-2xl bg-white/5 shadow-2xl backdrop-blur-md border border-white/10">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                            <div>
-                                <h2 class="text-5xl md:text-6xl font-extrabold text-light-text mb-1">${data.city}</h2>
-                                <p class="text-2xl text-accent-blue font-semibold">${current.description}</p>
-                                <p class="text-sm text-gray-400 mt-1">Today, ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
-                            </div>
-                            <div class="text-7xl md:text-9xl mt-4 sm:mt-0 drop-shadow-lg">${current.icon}</div>
-                        </div>
+        // Main Form Submission Handler
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-                        <div class="flex justify-center items-center my-6">
-                            <p class="text-8xl md:text-[120px] font-thin leading-none text-white">${current.temp}<span class="text-5xl align-top">°C</span></p>
-                        </div>
-                        
-                        <!-- Details Grid -->
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-4 border-t border-white/10">
-                            ${detailBox('Feels Like', `${current.feelsLike}°C`, '🌤️')}
-                            ${detailBox('Wind Speed', `${current.windSpeed} km/h`, '💨')}
-                            ${detailBox('Humidity', `${current.humidity}%`, '💧')}
-                            ${detailBox('Pressure', `${current.pressure} hPa`, '📊')}
-                        </div>
-                    </div>
+            // Clear previous results/errors
+            quoteResult.classList.add('hidden');
+            quoteError.classList.add('hidden');
 
-                    <!-- 2. Detailed Forecast (Right Column on Desktop, Bottom on Mobile) -->
-                    <div class="lg:col-span-1">
-                        <h3 class="text-2xl font-bold mb-4 text-light-text border-b border-white/10 pb-2">4-Day Forecast</h3>
-                        <div class="grid grid-cols-2 gap-4 lg:flex lg:flex-col lg:gap-3 forecast-scroll">
-                            ${forecastHtml}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+            const cleaningType = document.getElementById('cleaning-type').value;
+            const bedrooms = bedroomsInput.value;
+            const frequency = document.querySelector('input[name="frequency"]:checked')?.value;
 
-        /**
-         * Helper function to generate a reusable detail box HTML fragment.
-         * @param {string} label - The metric name (e.g., Wind Speed).
-         * @param {string} value - The metric value (e.g., 12 km/h).
-         * @param {string} icon - Emoji icon for the metric.
-         */
-        function detailBox(label, value, icon) {
-            return `
-                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg border border-white/10">
-                    <p class="text-2xl mb-1">${icon}</p>
-                    <p class="text-sm font-semibold text-gray-300">${label}</p>
-                    <p class="text-xl font-bold text-accent-blue">${value}</p>
-                </div>
-            `;
-        }
-
-        /**
-         * Main function to handle the weather search and rendering.
-         */
-        async function searchWeather() {
-            const city = cityInput.value;
-            errorMessageEl.classList.add('hidden'); // Clear previous errors
-
-            if (city.trim() === "") {
-                showMessage("Please enter a city name to search.", false);
+            // Simple validation
+            if (!cleaningType || !bedrooms || !frequency) {
+                if (!bedrooms) {
+                    document.getElementById('room-error').classList.remove('hidden');
+                }
+                quoteError.classList.remove('hidden');
                 return;
             }
 
-            // Show loading state
-            weatherDataEl.innerHTML = '';
-            loadingSpinner.classList.remove('hidden');
-            appBody.style.opacity = 0.7; // Dim the background slightly during loading
+            // Define base prices (simulated, based on 2-bedroom standard clean)
+            let basePrice = 120; // Default base price for 1 bedroom
+            let typeMultiplier = 1.0;
+            let sizeFactor = 1.0;
+            let discount = 0.0;
+            let frequencyText = "";
+            let typeText = "";
 
-            try {
-                const data = await fetchWeather(city);
-                
-                // 1. Render the detailed weather HTML
-                weatherDataEl.innerHTML = generateWeatherHtml(data);
-                
-                // 2. Set the dynamic background
-                setDynamicBackground(data.current.condition);
-
-            } catch (error) {
-                // Display error message
-                weatherDataEl.innerHTML = `
-                    <div class="text-center p-6 bg-red-900/40 rounded-xl border border-red-500/50">
-                        <p class="text-2xl font-semibold text-red-300 mb-2">City Not Found</p>
-                        <p class="text-gray-200">${error.message}</p>
-                        <p class="mt-4 text-sm text-gray-400">Please check your spelling or try a simulated city.</p>
-                    </div>
-                `;
-                setDynamicBackground('default'); // Reset background on error
-            } finally {
-                // Hide loading state and reset opacity
-                loadingSpinner.classList.add('hidden');
-                appBody.style.opacity = 1; 
+            // 1. Apply Size Factor
+            switch (bedrooms) {
+                case '1': sizeFactor = 1.0; break; // $120
+                case '2': sizeFactor = 1.35; break; // $162
+                case '3': sizeFactor = 1.7; break; // $204
+                case '4+': sizeFactor = 2.2; basePrice = 140; break; // For 4+ bedrooms, higher base and multiplier for larger homes
             }
-        }
+            let initialPrice = basePrice * sizeFactor;
+
+            // 2. Apply Cleaning Type Multiplier
+            switch (cleaningType) {
+                case 'standard':
+                    typeMultiplier = 1.0;
+                    typeText = "Standard Clean";
+                    break;
+                case 'deep':
+                    typeMultiplier = 1.4; // 40% more for deep clean
+                    typeText = "Deep Clean (Recommended)";
+                    break;
+                case 'move':
+                    typeMultiplier = 1.8; // 80% more for move in/out
+                    typeText = "Move In/Out Clean";
+                    break;
+            }
+            initialPrice *= typeMultiplier;
+
+
+            // 3. Apply Frequency Discount
+            switch (frequency) {
+                case 'one-time':
+                    discount = 0;
+                    frequencyText = "One-Time Service (No Discount)";
+                    break;
+                case 'bi-weekly':
+                    discount = 0.15; // 15% discount
+                    frequencyText = "Bi-Weekly Service (15% Savings!)";
+                    break;
+                case 'weekly':
+                    discount = 0.20; // 20% discount
+                    frequencyText = "Weekly Service (20% Savings!)";
+                    break;
+            }
+            const finalPrice = initialPrice * (1 - discount);
+
+            // Format the final price
+            const formattedPrice = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2
+            }).format(finalPrice);
+
+            // Update result display
+            finalPriceDisplay.textContent = formattedPrice;
+            quoteDetailsDisplay.innerHTML = `
+                <p><strong>Package:</strong> ${typeText} (${bedrooms} Bedrooms)</p>
+                <p><strong>Frequency:</strong> ${frequencyText}</p>
+                ${discount > 0 ? `<p class="text-accent font-semibold">You saved: ${new Intl.NumberFormat('en-US', { style: 'percent', minimumFractionDigits: 0 }).format(discount)} on this quote!</p>` : ''}
+                <p class="mt-2 text-sm text-blue-200">This is an estimate. Final price confirmed upon on-site assessment.</p>
+            `;
+
+            quoteResult.classList.remove('hidden');
+
+            // Scroll to the quote result for better mobile UX
+            quoteResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     </script>
+
 </body>
 </html>
 
